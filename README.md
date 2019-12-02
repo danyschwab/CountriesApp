@@ -1,6 +1,6 @@
 # CountriesApp
 
-CountriesApp is an Android Application for studying. This project will consist in studying tools like RxJava, MVVM and Dagger2. 
+CountriesApp is an Android Application for studying. This project will consist in learning the latest Android technologies including Dagger2, MVVM, Java, RxJava, Retrofit, Mockito and Glide tools like RxJava, MVVM and Dagger2. 
 
 ## Installation
 

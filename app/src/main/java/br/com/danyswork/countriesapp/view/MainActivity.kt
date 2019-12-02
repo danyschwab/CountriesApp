@@ -1,7 +1,8 @@
-package br.com.danyswork.countriesapp
+package br.com.danyswork.countriesapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.danyswork.countriesapp.R
 
 class  MainActivity : AppCompatActivity() {
 
