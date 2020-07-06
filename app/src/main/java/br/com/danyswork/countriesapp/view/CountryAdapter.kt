@@ -1,28 +1,30 @@
 package br.com.danyswork.countriesapp.view
 
-import android.view.LayoutInflater
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.danyswork.countriesapp.R
 import br.com.danyswork.countriesapp.model.CountryModel
+import br.com.danyswork.countriesapp.utils.layoutInflater
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_view.view.*
 
 class CountryAdapter(
+    private val context: Context,
     private val countries: MutableList<CountryModel>
 ) : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
 
-    fun updateCountries(newContruies: MutableList<CountryModel>) {
+    fun updateCountries(newCountries: MutableList<CountryModel>) {
         countries.clear()
-        countries.addAll(newContruies)
+        countries.addAll(newCountries)
         notifyDataSetChanged()
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         return CountryViewHolder(
-            LayoutInflater.from(parent.context).inflate(
+            context.layoutInflater.inflate(
                 R.layout.item_view,
                 parent,
                 false
@@ -35,7 +37,7 @@ class CountryAdapter(
     }
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        holder.bind(countries.get(position))
+        holder.bind(countries[position])
     }
 
     class CountryViewHolder(view: View) : RecyclerView.ViewHolder(view) {

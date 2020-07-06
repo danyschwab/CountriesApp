@@ -2,30 +2,54 @@ package br.com.danyswork.countriesapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.danyswork.countriesapp.model.CountriesService
 import br.com.danyswork.countriesapp.model.CountryModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ListViewModel : ViewModel() {
 
-    val countries: MutableLiveData<List<CountryModel>> = MutableLiveData()
+class ListViewModel @Inject constructor(
+    private val countriesService: CountriesService
+) : ViewModel() {
+
+    val countries: MutableLiveData<MutableList<CountryModel>> = MutableLiveData()
     val countryLoadError: MutableLiveData<Boolean> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun refresh(){
+    private val disposable = CompositeDisposable()
+
+    fun refresh() {
         fetchCountries()
     }
 
-    private fun fetchCountries(){
-        val country1 = CountryModel("Albania", "Tirana", "")
-        val country2 = CountryModel("Brazil", "Brasilia", "")
-        val country3 = CountryModel("Czechia", "Praha", "")
+    private fun fetchCountries() {
+        loading.value = true
+        disposable.add(
+            countriesService.getCountries()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object :
+                    DisposableSingleObserver<MutableList<CountryModel>>() {
+                    override fun onSuccess(countryModels: MutableList<CountryModel>) {
+                        countries.value = countryModels
+                        countryLoadError.value = false
+                        loading.value = false
+                    }
 
-        val list = ArrayList<CountryModel>()
-        list.add(country1)
-        list.add(country2)
-        list.add(country3)
+                    override fun onError(e: Throwable) {
+                        countryLoadError.value = true
+                        loading.value = false
+                        e.printStackTrace()
+                    }
+                })
+        )
+    }
 
-        countries.value = list
-        countryLoadError.value = false
-        loading.value = false
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }

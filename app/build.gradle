@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-ext{
+ext {
     lifecycleExtensionsVersion = "2.0.0"
     butterknifeVersion = "10.2.0"
     supportVersion = "29.0.0"
@@ -16,7 +16,8 @@ ext{
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
+    dataBinding { enabled = true }
     defaultConfig {
         applicationId "br.com.danyswork.countriesapp"
         minSdkVersion 16
@@ -71,6 +72,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     //Test
     testImplementation 'junit:junit:4.12'
