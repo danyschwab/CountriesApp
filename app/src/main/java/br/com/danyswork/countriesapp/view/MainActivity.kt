@@ -2,9 +2,9 @@ package br.com.danyswork.countriesapp.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.danyswork.countriesapp.R
 import br.com.danyswork.countriesapp.model.CountryModel
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
+        viewModel = ListViewModel()
 
         countriesList.layoutManager = LinearLayoutManager(this)
         countriesList.adapter = adapter
