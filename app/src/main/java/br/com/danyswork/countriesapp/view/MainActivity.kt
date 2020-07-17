@@ -24,11 +24,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.refresh()
-
-        binding.viewModel = viewModel
 
         countriesList.layoutManager = LinearLayoutManager(this)
         countriesList.adapter = adapter

@@ -10,6 +10,7 @@ interface CountriesApi {
         const val BASE_URL = "https://raw.githubusercontent.com"
     }
 
+
     @GET("${BASE_URL}/DevTides/countries/master/countriesV2.json")
     fun getCountries(): Single<MutableList<CountryModel>>
 }

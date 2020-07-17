@@ -1,18 +1,17 @@
 package br.com.danyswork.countriesapp.model
 
+import br.com.danyswork.countriesapp.di.DaggerApiComponent
 import io.reactivex.Single
 import javax.inject.Inject
 
 
-interface CountriesService {
-    fun getCountries(): Single<MutableList<CountryModel>>
-}
+class CountriesService @Inject constructor(private val api: CountriesApi) {
 
-class CountriesServiceImpl @Inject constructor(
-    private val api: CountriesApi
-) : CountriesService {
+    init {
+        DaggerApiComponent.create().inject(this)
+    }
 
-    override fun getCountries(): Single<MutableList<CountryModel>> {
+    fun getCountries(): Single<MutableList<CountryModel>> {
         return api.getCountries()
     }
 }
