@@ -43,9 +43,9 @@ class CountryAdapter(
     class CountryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: CountryModel) = with(itemView) {
             Glide.with(this)
-                .load(item.flag)
+                .load(item.flagPNG)
                 .into(flag)
-            countryName.text = item.countryName
+            countryName.text = item.name
             capital.text = item.capital
         }
     }

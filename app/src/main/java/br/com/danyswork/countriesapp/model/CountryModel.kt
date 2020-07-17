@@ -1,7 +1,7 @@
 package br.com.danyswork.countriesapp.model
 
 class CountryModel (
-    val countryName: String,
+    val name: String,
     val capital: String,
-    val flag: String
+    val flagPNG: String
 )

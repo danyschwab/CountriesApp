@@ -2,6 +2,7 @@ package br.com.danyswork.countriesapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.danyswork.countriesapp.di.DaggerApiComponent
 import br.com.danyswork.countriesapp.model.CountriesService
 import br.com.danyswork.countriesapp.model.CountryModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,15 +12,20 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class ListViewModel @Inject constructor(
-    private val countriesService: CountriesService
-) : ViewModel() {
+class ListViewModel : ViewModel() {
+
+    init {
+        DaggerApiComponent.create().inject(this)
+    }
 
     val countries: MutableLiveData<MutableList<CountryModel>> = MutableLiveData()
     val countryLoadError: MutableLiveData<Boolean> = MutableLiveData()
     val loading: MutableLiveData<Boolean> = MutableLiveData()
 
     private val disposable = CompositeDisposable()
+
+    @Inject
+    lateinit var countriesService: CountriesService
 
     fun refresh() {
         fetchCountries()
